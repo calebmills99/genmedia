@@ -7,8 +7,10 @@ from genmedia.client import DEFAULT_MODEL, generate_image
 
 class GenerateImageTests(unittest.TestCase):
     def test_rejects_empty_prompt(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as ctx:
             generate_image("   ")
+
+        self.assertEqual(str(ctx.exception), "prompt must not be empty")
 
     def test_requires_fal_key(self):
         with patch("genmedia.client.os.getenv", return_value=None):
