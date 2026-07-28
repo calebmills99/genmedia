@@ -14,8 +14,10 @@ class GenerateImageTests(unittest.TestCase):
 
     def test_requires_fal_key(self):
         with patch("genmedia.client.os.getenv", return_value=None):
-            with self.assertRaises(RuntimeError):
+            with self.assertRaises(RuntimeError) as ctx:
                 generate_image("a cat")
+
+        self.assertIn("FAL_KEY environment variable is required", str(ctx.exception))
 
     def test_calls_fal_client_with_prompt(self):
         with patch("genmedia.client.os.getenv", return_value="test-key"):
