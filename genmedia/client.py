@@ -1,6 +1,7 @@
 import os
 
 import fal_client
+from fal_client import FalClientError
 
 DEFAULT_MODEL = "fal-ai/fast-sdxl"
 
@@ -18,6 +19,7 @@ def generate_image(prompt: str, model: str = DEFAULT_MODEL):
     Raises:
         ValueError: If ``prompt`` is empty or whitespace only.
         RuntimeError: If ``FAL_KEY`` is not set in the environment.
+        RuntimeError: If the fal API request fails.
     """
     if not prompt or not prompt.strip():
         raise ValueError("prompt must not be empty")
@@ -27,5 +29,5 @@ def generate_image(prompt: str, model: str = DEFAULT_MODEL):
 
     try:
         return fal_client.run(model, arguments={"prompt": prompt})
-    except Exception as exc:
+    except FalClientError as exc:
         raise RuntimeError(f"fal generation failed: {exc}") from exc

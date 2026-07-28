@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch
 
+from fal_client import FalClientError
 from genmedia.client import DEFAULT_MODEL, generate_image
 
 
@@ -32,7 +33,7 @@ class GenerateImageTests(unittest.TestCase):
 
     def test_wraps_fal_errors(self):
         with patch("genmedia.client.os.getenv", return_value="test-key"):
-            with patch("genmedia.client.fal_client.run", side_effect=Exception("boom")):
+            with patch("genmedia.client.fal_client.run", side_effect=FalClientError("boom")):
                 with self.assertRaises(RuntimeError) as ctx:
                     generate_image("a cat")
 
