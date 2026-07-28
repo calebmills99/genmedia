@@ -8,7 +8,7 @@ DEFAULT_MODEL = "fal-ai/fast-sdxl"
 
 
 def generate_image(prompt: str, model: str = DEFAULT_MODEL) -> dict[str, Any]:
-    """Generate media through fal for a prompt.
+    """Generate an image through fal for a prompt.
 
     Args:
         prompt: Non-empty text prompt to send to the model.
