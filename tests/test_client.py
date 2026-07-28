@@ -30,6 +30,14 @@ class GenerateImageTests(unittest.TestCase):
         self.assertEqual(result, {"ok": True})
         run_mock.assert_called_once_with("custom-model", arguments={"prompt": "a cat"})
 
+    def test_wraps_fal_errors(self):
+        with patch("genmedia.client.os.getenv", return_value="test-key"):
+            with patch("genmedia.client.fal_client.run", side_effect=Exception("boom")):
+                with self.assertRaises(RuntimeError) as ctx:
+                    generate_image("a cat")
+
+        self.assertIn("fal generation failed: boom", str(ctx.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

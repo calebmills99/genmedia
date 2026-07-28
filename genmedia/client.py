@@ -25,4 +25,7 @@ def generate_image(prompt: str, model: str = DEFAULT_MODEL):
     if not os.getenv("FAL_KEY"):
         raise RuntimeError("FAL_KEY environment variable is required")
 
-    return fal_client.run(model, arguments={"prompt": prompt})
+    try:
+        return fal_client.run(model, arguments={"prompt": prompt})
+    except Exception as exc:
+        raise RuntimeError(f"fal generation failed: {exc}") from exc
