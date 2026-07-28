@@ -1,4 +1,5 @@
 import os
+from typing import Any
 
 import fal_client
 from fal_client import FalClientError
@@ -6,7 +7,7 @@ from fal_client import FalClientError
 DEFAULT_MODEL = "fal-ai/fast-sdxl"
 
 
-def generate_image(prompt: str, model: str = DEFAULT_MODEL):
+def generate_image(prompt: str, model: str = DEFAULT_MODEL) -> Any:
     """Generate media through fal for a prompt.
 
     Args:

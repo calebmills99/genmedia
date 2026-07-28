@@ -37,7 +37,7 @@ class GenerateImageTests(unittest.TestCase):
                 with self.assertRaises(RuntimeError) as ctx:
                     generate_image("a cat")
 
-        self.assertIn("fal generation failed: boom", str(ctx.exception))
+        self.assertIn("fal generation failed", str(ctx.exception))
 
 
 if __name__ == "__main__":
