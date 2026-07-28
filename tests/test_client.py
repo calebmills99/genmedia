@@ -25,8 +25,9 @@ class GenerateImageTests(unittest.TestCase):
     def test_uses_custom_model_when_provided(self):
         with patch("genmedia.client.os.getenv", return_value="test-key"):
             with patch("genmedia.client.fal_client.run", return_value={"ok": True}) as run_mock:
-                generate_image("a cat", model="custom-model")
+                result = generate_image("a cat", model="custom-model")
 
+        self.assertEqual(result, {"ok": True})
         run_mock.assert_called_once_with("custom-model", arguments={"prompt": "a cat"})
 
 
